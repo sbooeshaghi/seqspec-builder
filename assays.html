@@ -34,21 +34,73 @@
         data = data.replace(/- !Read/g, "-");
         data = data.replace(/- !Region/g, "-");
         data = data.replace(/!Onlist/g, "");
+        data = data.replace(/!File/g, "");
 
         return data;
       }
       $(document).ready(function () {
         files = [
-          "illumina_truseq_dual.spec.yaml",
-          "element_adept_truseq_dual.spec.yaml",
+          "10xv3_scrnaseq_illumina_truseq_dual.spec.yaml",
+          "10xv3_scrnaseq_element_adept_truseq_dual.spec.yaml",
+          "10x_atac.spec.yaml",
+          "10x_rna_5prime.spec.yaml",
+          "10x_rna_atac.spec.yaml",
+          "10x_rna_atac_multi.spec.yaml",
+          "10x_rna_v1.spec.yaml",
+          "10x_rna_v2.spec.yaml",
+          "10x_rna_v3.spec.yaml",
+          "10xcrispr.spec.yaml",
+          "10xfb_3prime.spec.yaml",
+          "10xfb_5prime.spec.yaml",
+          "10xfb_vdj_5prime.spec.yaml",
+          "10xv3_scrnaseq_element_adept_truseq_dual.spec.yaml",
+          "10xv3_scrnaseq_illumina_truseq_dual.spec.yaml",
+          "bd_rhapsody_eb.spec.yaml",
+          "bd_rhapsody_v1.spec.yaml",
+          "cel_seq.spec.yaml",
+          "cel_seq2.spec.yaml",
+          "dogmaseq_dig.spec.yaml",
+          "dogmaseq_lll.spec.yaml",
+          "drop_seq.spec.yaml",
+          "indropv2.spec.yaml",
+          "issaac_seq.spec.yaml",
+          "mars_seq.spec.yaml",
+          "mcscrb_seq.spec.yaml",
+          "microwell_seq.spec.yaml",
+          "parse_wt_v2.spec.yaml",
+          "pi_atac_seq.spec.yaml",
+          "pipseqv2.spec.yaml",
+          "pipseqv3.spec.yaml",
+          "quartz_seq.spec.yaml",
+          "quartz_seq2.spec.yaml",
+          "sccrispra.spec.yaml",
+          "sci_rna_seq.spec.yaml",
+          "sci_rna_seq3.spec.yaml",
+          "scifi_rna_seq.spec.yaml",
+          "seq_well.spec.yaml",
+          "seq_well_s3.spec.yaml",
+          "share_seq.spec.yaml",
+          "smart_seq2.spec.yaml",
+          "smart_seq3.spec.yaml",
+          "sn_m3c_seq.spec.yaml",
+          "snmctseq.spec.yaml",
+          "split_seq.spec.yaml",
+          "strt_seq.spec.yaml",
+          "strt_seq_2i.spec.yaml",
+          "strt_seq_c1.spec.yaml",
+          "sugarseq.spec.yaml",
+          "surecell.spec.yaml",
+          "tang2009.spec.yaml",
+          "vasa_seq_drop.spec.yaml",
+          "vasa_seq_plate.spec.yaml",
         ];
 
         // load the regions into the table
         for (let i = 0; i < files.length; i++) {
-          $.get(`assays/${files[i]}`, function (data) {
+          $.get(`seqspec/docs/assays/${files[i]}`, function (data) {
             const assay = new Assay(jsyaml.load(cleanTags(data)));
             $(".assay-row").append(
-              formatAssayRow(assay, `assays/${files[i]}`, i + 1)
+              formatAssayRow(assay, `seqspec/docs/assays/${files[i]}`, i + 1)
             );
           });
         }
@@ -74,10 +126,11 @@
           >
         </p>
         <ul>
-          <li><a href="builder.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="reads.html">Example Reads</a></li>
           <li><a href="regions.html">Example Regions</a></li>
           <li><a href="assays.html">Example Assays</a></li>
+          <li><a href="builder.html">seqspec builder</a></li>
         </ul>
     <div class="container">
       <section>

@@ -33,6 +33,7 @@
         data = data.replace(/- !Read/g, "-");
         data = data.replace(/- !Region/g, "-");
         data = data.replace(/!Onlist/g, "");
+        data = data.replace(/!File/g, "");
 
         return data;
       }
@@ -55,11 +56,11 @@
 
         // load the regions into the table
         for (let i = 0; i < files.length; i++) {
-          $.get(`regions/${files[i]}`, function (data) {
+          $.get(`seqspec/docs/regions/${files[i]}`, function (data) {
             // Assuming Region is a constructor you've defined elsewhere
             const region = new Region(jsyaml.load(cleanTags(data))[0]);
             $(".region-row").append(
-              formatRegionRow(region, `regions/${files[i]}`, i + 1)
+              formatRegionRow(region, `seqspec/docs/regions/${files[i]}`, i + 1)
             );
           });
         }
@@ -85,10 +86,11 @@
         >
       </p>
       <ul>
-        <li><a href="builder.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="reads.html">Example Reads</a></li>
         <li><a href="regions.html">Example Regions</a></li>
         <li><a href="assays.html">Example Assays</a></li>
+        <li><a href="builder.html">seqspec builder</a></li>
       </ul>
     </div>
     <div class="container">

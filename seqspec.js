@@ -43,6 +43,7 @@ class Read {
     min_len,
     max_len,
     strand,
+    files,
   }) {
     this.read_id = read_id;
     this.name = name;
@@ -51,6 +52,21 @@ class Read {
     this.min_len = min_len;
     this.max_len = max_len;
     this.strand = strand;
+    this.files = files.map((file) => new File(file));
+  }
+}
+
+class File {
+  constructor({ file_id, filename, filetype, filesize, url, urltype, md5 }) {
+    this.file_id = file_id;
+    this.filename = filename;
+    this.filetype = filetype;
+    this.filesize = filesize;
+    this.url = url;
+    this.urltype = urltype;
+    this.md5 = md5;
+    // Remove this if location is not provided
+    // this.location = location;
   }
 }
 

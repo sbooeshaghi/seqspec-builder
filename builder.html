@@ -3,26 +3,210 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="styles.css" />
-
-    <title>Document</title>
+    <title>seqspec Builder</title>
+    <link rel="stylesheet" href="styles_builder.css" />
   </head>
   <body>
-    <div>
-      <h1 style="text-align: center">Specification builder</h1>
-      <p>
-        Learn more about the
-        <a href="https://github.com/pachterlab/seqspec" target="_blank">
-          <i>seqspec</i> specification.</a
-        >
-      </p>
-      <ul>
-        <li><a href="builder.html">Home</a></li>
-        <li><a href="reads.html">Example Reads</a></li>
-        <li><a href="regions.html">Example Regions</a></li>
-        <li><a href="assays.html">Example Assays</a></li>
-      </ul>
-    </div>
+    <header>
+      <h1>seqspec Builder</h1>
+      <p>Build your seqspec file for genomics experiments</p>
+    </header>
+
+    <main>
+      <section id="template-selection">
+        <label for="template-select">Select a template:</label>
+        <select id="template-select">
+          <option value="blank">Blank</option>
+          <option value="10xv3">10x Genomics v3</option>
+        </select>
+      </section>
+
+      <section id="assay-info">
+        <h2>Assay Information</h2>
+        <form id="assay-form">
+          <label for="assay-id">Assay ID:</label>
+          <input type="text" id="assay-id" name="assay_id" required />
+
+          <label for="assay-name">Name:</label>
+          <input type="text" id="assay-name" name="name" required />
+
+          <label for="assay-doi">DOI:</label>
+          <input type="text" id="assay-doi" name="doi" required />
+
+          <label for="assay-date">Date:</label>
+          <input type="date" id="assay-date" name="date" required />
+
+          <label for="assay-description">Description:</label>
+          <textarea
+            id="assay-description"
+            name="description"
+            required
+          ></textarea>
+
+          <label for="assay-lib-struct">Lib Struct:</label>
+          <input type="text" id="assay-lib-struct" name="lib_struct" />
+
+          <label for="assay-sequence-protocol">Sequence Protocol:</label>
+          <input
+            type="text"
+            id="assay-sequence-protocol"
+            name="sequence_protocol"
+            required
+          />
+
+          <label for="assay-sequence-kit">Sequence Kit:</label>
+          <input
+            type="text"
+            id="assay-sequence-kit"
+            name="sequence_kit"
+            required
+          />
+
+          <label for="assay-library-protocol">Library Protocol:</label>
+          <input
+            type="text"
+            id="assay-library-protocol"
+            name="library_protocol"
+            required
+          />
+
+          <label for="assay-library-kit">Library Kit:</label>
+          <input
+            type="text"
+            id="assay-library-kit"
+            name="library_kit"
+            required
+          />
+          <!-- <button type="submit">Update Assay Info</button> -->
+        </form>
+        <div id="assay-info-display"></div>
+      </section>
+
+      <section id="modalities">
+        <h2>Modalities</h2>
+        <form id="modality-form">
+          <label for="modality-name">Modality Name:</label>
+          <input type="text" id="modality-name" name="modality-name" required />
+          <button type="submit">Add Modality</button>
+        </form>
+        <div id="modalities-list"></div>
+      </section>
+
+      <section id="library-structure">
+        <h2>Library Structure</h2>
+        <form id="region-form">
+          <label for="region-id">Region ID:</label>
+          <input type="text" id="region-id" name="region_id" required />
+
+          <label for="region-type">Region Type:</label>
+          <select id="region-type" name="region_type" required>
+            <option value="barcode">Barcode</option>
+            <option value="umi">UMI</option>
+            <option value="cdna">cDNA</option>
+            <!-- Add other region types as needed -->
+          </select>
+
+          <label for="region-name">Name:</label>
+          <input type="text" id="region-name" name="name" required />
+
+          <label for="sequence-type">Sequence Type:</label>
+          <select id="sequence-type" name="sequence_type" required>
+            <option value="fixed">Fixed</option>
+            <option value="random">Random</option>
+            <option value="onlist">Onlist</option>
+            <option value="joined">Joined</option>
+          </select>
+
+          <label for="sequence">Sequence:</label>
+          <input type="text" id="sequence" name="sequence" required />
+
+          <label for="min-len">Min Length:</label>
+          <input
+            type="number"
+            id="min-len"
+            name="min_len"
+            required
+            min="0"
+            max="2048"
+          />
+
+          <label for="max-len">Max Length:</label>
+          <input
+            type="number"
+            id="max-len"
+            name="max_len"
+            required
+            min="0"
+            max="2048"
+          />
+
+          <button type="submit">Add Region</button>
+        </form>
+        <div id="regions-list"></div>
+      </section>
+
+      <section id="read-structure">
+        <h2>Read Structure</h2>
+        <form id="read-form">
+          <label for="read-id">Read ID:</label>
+          <input type="text" id="read-id" name="read_id" required />
+
+          <label for="read-name">Name:</label>
+          <input type="text" id="read-name" name="name" required />
+
+          <label for="read-modality">Modality:</label>
+          <select id="read-modality" name="modality" required>
+            <!-- Options will be populated dynamically -->
+          </select>
+
+          <label for="primer-id">Primer ID:</label>
+          <select id="primer-id" name="primer_id" required>
+            <!-- Options will be populated dynamically -->
+          </select>
+
+          <label for="read-min-len">Min Length:</label>
+          <input
+            type="number"
+            id="read-min-len"
+            name="min_len"
+            required
+            min="0"
+          />
+
+          <label for="read-max-len">Max Length:</label>
+          <input
+            type="number"
+            id="read-max-len"
+            name="max_len"
+            required
+            min="0"
+          />
+
+          <label for="read-strand">Strand:</label>
+          <select id="read-strand" name="strand" required>
+            <option value="pos">Positive</option>
+            <option value="neg">Negative</option>
+          </select>
+
+          <button type="submit">Add Read</button>
+        </form>
+        <div id="reads-list"></div>
+      </section>
+
+      <section id="visualization">
+        <h2>Visual Representation</h2>
+        <div id="svg-container">
+          <svg id="structure-svg"></svg>
+        </div>
+      </section>
+
+      <section id="actions">
+        <button id="download-yaml">Download YAML</button>
+        <button id="clear-storage">Clear Storage</button>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="seqspec-builder.js"></script>
   </body>
 </html>

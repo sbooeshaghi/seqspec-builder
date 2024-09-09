@@ -28,6 +28,7 @@
       }
 
       function formatReadRow(read, index = 0) {
+        // console.log(read);
         return `
                   <tr>
                     <td>${index}</td>
@@ -38,6 +39,7 @@
                     <td>${read.min_len}</td>
                     <td>${read.max_len}</td>
                     <td>${read.strand}</td>
+                    <td>${read.files.length}</td>
                   </tr>
                   `;
       }
@@ -69,6 +71,7 @@
                             <th>Min len</th>
                             <th>Max len</th>
                             <th>Strand</th>
+                            <th>Num. Files</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -88,6 +91,7 @@
         data = data.replace(/- !Read/g, "-");
         data = data.replace(/- !Region/g, "-");
         data = data.replace(/!Onlist/g, "");
+        data = data.replace(/!File/g, "");
 
         return data;
       }
@@ -104,8 +108,7 @@
 
         // load the regions into the table
         for (let i = 0; i < files.length; i++) {
-          $.get(`reads/${files[i]}`, function (data) {
-            // Assuming Region is a constructor you've defined elsewhere
+          $.get(`seqspec/docs/reads/${files[i]}`, function (data) {
             let seq = jsyaml.load(cleanTags(data));
             let reads = seq.sequence_spec.map((read) => new Read(read));
 
@@ -116,7 +119,7 @@
                 seq.sequence_protocol,
                 seq.sequence_kit,
                 reads,
-                `reads/${files[i]}`,
+                `seqspec/docs/reads/${files[i]}`,
                 i + 1
               )
             );
@@ -144,10 +147,11 @@
         >
       </p>
       <ul>
-        <li><a href="builder.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="reads.html">Example Reads</a></li>
         <li><a href="regions.html">Example Regions</a></li>
         <li><a href="assays.html">Example Assays</a></li>
+        <li><a href="builder.html">seqspec builder</a></li>
       </ul>
     </div>
     <div class="container">

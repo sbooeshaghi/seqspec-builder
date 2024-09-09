@@ -1,0 +1,4 @@
+[submodule "seqspec"]
+	path = seqspec
+	url = https://github.com/pachterlab/seqspec
+	branch = devel
